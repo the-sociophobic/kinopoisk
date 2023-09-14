@@ -19,36 +19,50 @@ function insertButtonIntoElements() {
   
     return divs
   }
+  const removeFirstFoundByClassNames = (classNames) => {
+    const divs = findByClassNames(classNames)
+
+    if (divs?.[0])
+      divs[0].style.display = "none"
+  }
+  const removeAllFoundByClassNames = (classNames) => {
+    const divs = findByClassNames(classNames)
+
+    divs.forEach(div => {
+      div.style.display = "none"
+    })
+  }
+
   const removeAds = () => {
     const promo0 = document.getElementById("page1")
-    if (promo0) promo0.style.display = "none"
+    if (promo0)
+      promo0.style.display = "none"
   
     const promo1 = document.getElementById("trailer-promo-block")
-    if (promo1) promo1.parentElement.children[1].style.display = "none"
+    if (promo1)
+      promo1.parentElement.children[1].style.display = "none"
   
-    const promo2 = document.getElementsByClassName("yandex_music")?.[0]
-    if (promo2)
-      promo2.parentElement.parentElement.parentElement.parentElement.style.display =
-        "none"
+    // REMOVE HOMEPAGE UPPER BANNER
+    removeFirstFoundByClassNames(['media-post-embed'])
   
-    const divs = findByClassNames([
+    // REMOVE SIDEBAR AD
+    removeFirstFoundByClassNames(['__sidebar-content'])
+
+    // REMOVE ADBLOCK WARNING
+    removeAllFoundByClassNames([
       "styles_rootRendered__",
       "styles_adBlockWarningRoot__",
     ])
-    divs.forEach((div) => (div.style.display = "none"))
 
     const divs2 = findByClassNames([
       "styles_sidebar__",
     ])
-    divs2.forEach((div) => [...div.children]
+    divs2.forEach(div => [...div.children]
       .filter(child => child.className.includes('styles_sticky__'))
       .forEach(child => child.style.display = "none")
     )
   }
-  // You can customize this function to insert a button into elements with a specific ID.
-  // For example, you can use document.getElementById("your-id") to find the element and insert a button.
-  // Here's a simple example:
-  // const element = document.getElementById("your-id")
+
   const element = findByClassNames(['styles_buttonsContainer__'])?.[0]
   
   if (element) {
