@@ -48,6 +48,9 @@ function insertButtonIntoElements() {
     // REMOVE SIDEBAR AD
     removeFirstFoundByClassNames(['__sidebar-content'])
 
+    // REMOVE OVERLAY
+    removeFirstFoundByClassNames(['styles_overlay__'])
+
     // REMOVE ADBLOCK WARNING
     removeAllFoundByClassNames([
       "styles_rootRendered__",

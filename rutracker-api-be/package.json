@@ -1,0 +1,21 @@
+{
+  "name": "rutracker-api-be",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "yarn run clean && NODE_ENV=prod npx tsc",
+    "start": "node dist/index.js",
+    "dev": "NODE_ENV=dev nodemon src/index.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "rutracker-api": "^1.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.6.0",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
+  }
+}
