@@ -2,7 +2,13 @@
 // It is responsible for running the 'insertButtonIntoElements' function.
 
 function insertButtonIntoElements() {
+  if (!window.location.href.includes('kinopoisk'))
+    return
+
   const findByClassNames = (classNames) => {
+    if (!Array.isArray(classNames))
+      return []
+    
     var all_divs = document.getElementsByTagName("div")
     var divs = []
   
@@ -57,6 +63,11 @@ function insertButtonIntoElements() {
       "styles_adBlockWarningRoot__",
     ])
 
+    const footer = document.getElementById('partial_component__header-topline')
+    
+    if (footer)
+      footer.style.display = 'none'
+
     const divs2 = findByClassNames([
       "styles_sidebar__",
     ])
@@ -64,6 +75,20 @@ function insertButtonIntoElements() {
       .filter(child => child.className.includes('styles_sticky__'))
       .forEach(child => child.style.display = "none")
     )
+
+    // REVOVE SIDEBAR ON SEARCH PAGE
+    const left_sidebar = document.getElementById('block_left_pad')
+
+    if (left_sidebar) {
+      const right_sidebar = left_sidebar?.parentElement?.children?.[1]
+      const ad = right_sidebar?.children?.[0]?.children?.[0]
+
+      if (ad)
+        ad.style.display = 'none'
+    }
+
+    // REMOVE MOVIE PAGE UPPER BANNER
+    removeAllFoundByClassNames(['styles_abbreviated__'])
   }
 
   const element = findByClassNames(['styles_buttonsContainer__'])?.[0]
