@@ -1,7 +1,7 @@
 // This script will be injected into the web page.
-// It is responsible for running the 'insertButtonIntoElements' function.
+// It is responsible for running the 'fixSites' function.
 
-function insertButtonIntoElements() {
+function fixSites() {
   const findByClassNames = (classNames) => {
     if (!Array.isArray(classNames))
       return []
@@ -9,6 +9,8 @@ function insertButtonIntoElements() {
     var all_divs = [
       ...document.getElementsByTagName('div'),
       ...document.getElementsByTagName('a'),
+      ...document.getElementsByTagName('span'),
+      ...document.getElementsByTagName('h1'),
     ]
     var divs = []
   
@@ -123,20 +125,65 @@ function insertButtonIntoElements() {
     widgets.forEach(widget => widget.remove())
   }
 
-  const element = findByClassNames(['styles_buttonsContainer__'])?.[0]
+  const insertRutrackerButton = () => {
+    const element = findByClassNames(['styles_buttonsContainer__'])?.[0]
+    
+    if (element) {
+      const button = document.createElement('button')
+      button.textContent = 'Скачать'
+      button.style.cursor = 'pointer'
+      button.style.height = '100%'
+      button.style.paddingLeft = '15px'
+      button.style.paddingRight = '15px'
+      button.style.borderRadius = '15px'
+      button.style.fontWeight = 'bold'
   
-  if (element) {
-    const button = document.createElement('button')
-    button.textContent = 'rutracker.org'
-    element.appendChild(button)
+      const title = findByClassNames(['styles_originalTitle__'])?.[0]?.textContent
+      const year = findByClassNames(['styles_title__'])?.[0]?.textContent.split('(').pop().split(')')[0]
+
+      const linkToRutracker = document.createElement('a')
+      linkToRutracker.appendChild(button)
+      linkToRutracker.style.display = 'inline-block'
+      linkToRutracker.target = '_blank'
+      linkToRutracker.href = encodeURI(`https://rutracker.org/forum/tracker.php?nm=${title} ${year}`)
+  
+      element.appendChild(linkToRutracker)
+    }
   }
 
-  if (window.location.href.includes('kinopoisk'))
+  const sortRutrackerSearch = () => {
+    const resultsTable = [...document.getElementsByTagName('table')]
+      .filter(table => table.classList.contains('forumline'))[0]
+
+    if (!resultsTable)
+      return
+    
+    resultsTable.scrollIntoView?.()
+
+    const seedsTh = resultsTable.children[0].children[0].children[6]
+    console.log(seedsTh)
+
+    if (!seedsTh)
+      return
+
+    // doesn't work. Investigate
+    seedsTh.click()
+  }
+
+
+  if (window.location.href.includes('kinopoisk')) {
+    insertRutrackerButton()
     setInterval(removeKinopoiskAds, 500)
+  }
+
+  if (window.location.href.includes('rutracker.org/forum/tracker.php?')) {
+    setTimeout(sortRutrackerSearch, 500)
+    // setTimeout(sortRutrackerSearch, 3500)
+  }
 
   if (window.location.href.includes('skillbox'))
     setInterval(removeSkillboxAds, 500)
 }
 
 // Run the function when the content script is injected into a page.
-insertButtonIntoElements();
+fixSites();
