@@ -125,6 +125,10 @@ function fixSites() {
     widgets.forEach(widget => widget.remove())
   }
 
+  const removeReactDevHohly = () => {
+    removeAllFoundByClassNames(['h-[40px]'])
+  }
+
   const insertRutrackerButton = () => {
     const element = findByClassNames(['styles_buttonsContainer__'])?.[0]
     
@@ -171,7 +175,7 @@ function fixSites() {
   }
 
 
-  if (window.location.href.includes('kinopoisk')) {
+  if (window.location.href.includes('kinopoisk.ru')) {
     insertRutrackerButton()
     setInterval(removeKinopoiskAds, 500)
   }
@@ -183,6 +187,9 @@ function fixSites() {
 
   if (window.location.href.includes('skillbox'))
     setInterval(removeSkillboxAds, 500)
+
+  if (window.location.href.includes('react.dev'))
+    setInterval(removeReactDevHohly, 500)
 }
 
 // Run the function when the content script is injected into a page.
