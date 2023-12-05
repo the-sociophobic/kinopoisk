@@ -1,9 +1,9 @@
 {
   "author": "Lef Vasilef",
   "manifest_version": 3,
-  "name": "Интернет 2",
+  "name": "Kinopoisk unchained",
   "version": "1.0",
-  "description": "Улучшения русскоязычных сайтов",
+  "description": "Toolkit for russian sites",
   "permissions": ["activeTab", "scripting"],
   "action": {
     "default_popup": "index.html",
