@@ -6,7 +6,7 @@ const toDataURL = async (_url: string) => {
 const downloadFile = async (_URL: string, filename: string) => {
   const a = document.createElement('a')
 
-  a.href = await toDataURL(_URL)
+  a.href = _URL.includes('blob:') ? _URL : await toDataURL(_URL)
   a.download = filename
   
   document.body.appendChild(a)
