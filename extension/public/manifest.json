@@ -1,9 +1,9 @@
 {
   "author": "Lef Vasilef",
   "manifest_version": 3,
-  "name": "Kinopoisk unchained 2",
+  "name": "Интернет 2",
   "version": "1.0",
-  "description": "Kinopoisk + rutracker - adds",
+  "description": "Улучшения русскоязычных сайтов",
   "permissions": ["activeTab", "scripting"],
   "action": {
     "default_popup": "index.html",
