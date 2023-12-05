@@ -1,12 +1,12 @@
 {
   "author": "Lef Vasilef",
   "manifest_version": 3,
-  "name": "Kinopoisk unchained",
+  "name": "Kinopoisk unchained 2",
   "version": "1.0",
   "description": "Kinopoisk + rutracker - adds",
   "permissions": ["activeTab", "scripting"],
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "index.html",
     "default_icon": {
       "16": "icon.png",
       "48": "icon.png",
