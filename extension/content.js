@@ -1,6 +1,3 @@
-// This script will be injected into the web page.
-// It is responsible for running the 'fixSites' function.
-
 function fixSites() {
   const findByClassNames = (classNames) => {
     if (!Array.isArray(classNames))
@@ -41,6 +38,58 @@ function fixSites() {
       // div.style.display = 'none'
       div.remove()
     })
+  }
+  const getChildrenStack = e => {
+    const element = e.target
+    const childrenStack = []
+    let current = element
+
+    while (current.parentElement && current.parentElement.id !== 'root') {
+      const currentIndex = Array.from(current.parentNode.children).indexOf(current)
+
+      if (currentIndex === -1)
+        throw new Error('child not found')
+
+      childrenStack.unshift(currentIndex)
+      current = current.parentElement
+    }
+
+    if (current.parentElement.id === 'root')
+      console.log(childrenStack)
+
+    return childrenStack
+  }
+  const handleGetChildrenStack = () => {
+    window.addEventListener('contextmenu', getChildrenStack)
+  }
+  // handleGetChildrenStack()
+  const removeByChildrenStack = (childrenStack) => {
+    let current = document.getElementById('root')
+
+    for (const childIndex of childrenStack) {
+      console.log(childIndex, childrenStack)
+      console.log(current)
+      try {
+        current = Array.from(current.children)[childIndex]
+      } catch(err) {
+        throw new Error(err)
+      }
+    }
+
+    current.remove()
+  }
+
+  const downloadFile = async (_URL, filename) => {
+    const toDataURL = async (_url) => {
+      const blob = await fetch(_url).then(res => res.blob())
+      return URL.createObjectURL(blob)
+    }
+    const a = document.createElement('a')
+    a.href = await toDataURL(_URL)
+    a.download = filename
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
   }
 
   const removeKinopoiskAds = () => {
@@ -129,6 +178,20 @@ function fixSites() {
     removeAllFoundByClassNames(['h-[40px]'])
   }
 
+  const removeVk = () => {
+    removeAllFoundByClassNames(['_ads_block_data_w'])
+  }
+
+  const remove2gis = () => {
+    const ads = [
+      [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2],
+      [0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3],
+      [0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 7],
+    ]
+
+    ads.forEach(ad => removeByChildrenStack(ad))
+  }
+
   const insertRutrackerButton = () => {
     const element = findByClassNames(['styles_buttonsContainer__'])?.[0]
     
@@ -174,6 +237,52 @@ function fixSites() {
     seedsTh.click()
   }
 
+  const instButtons = () => {
+    const findCurrentStory = () => {
+      var all_imgs = [...document.getElementsByTagName('img')]
+      const currentStory = all_imgs.find(img =>
+        (
+          img.src.startsWith('https://scontent.cdninstagram.com/v/') &&
+          img.alt.startsWith('Photo by')
+        )
+        || img.src.startsWith('https://scontent-prg1-1.cdninstagram.com/v/')
+      )
+
+      return currentStory
+    }
+    
+    const currentStory = findCurrentStory()
+    let downloadButton = document.getElementById('current_story-download')
+
+    if (currentStory) {
+      if (!downloadButton) {
+        downloadButton = document.createElement('div')
+        downloadButton.id = 'current_story-download'
+        downloadButton.textContent = 'Скачать'
+        downloadButton.style.cursor = 'pointer'
+        downloadButton.style.height = '100%'
+        downloadButton.style.paddingLeft = '15px'
+        downloadButton.style.paddingRight = '15px'
+        downloadButton.style.borderRadius = '15px'
+        downloadButton.style.fontWeight = 'bold'
+        downloadButton.style.position = 'fixed'
+        downloadButton.style.zIndex = 10000
+        downloadButton.style.top = '74vh'
+        downloadButton.style.right = '10px'
+        document.body.appendChild(downloadButton)
+      }
+
+      downloadButton.onclick = () =>
+        downloadFile(
+          currentStory.src,
+          currentStory.src.split('/v/')[1].split('?')[0]
+        )
+    } else {
+      if (downloadButton)
+        downloadButton.remove()
+    }
+  }
+
 
   if (window.location.href.includes('kinopoisk.ru')) {
     insertRutrackerButton()
@@ -190,6 +299,15 @@ function fixSites() {
 
   if (window.location.href.includes('react.dev'))
     setInterval(removeReactDevHohly, 500)
+
+  if (window.location.href.includes('vk.com'))
+    setInterval(removeVk, 500)
+
+  if (window.location.href.includes('2gis.ru'))
+    setInterval(remove2gis, 500)
+
+  if (window.location.href.includes('instagram.com'))
+    setInterval(instButtons, 500)
 }
 
 // Run the function when the content script is injected into a page.
