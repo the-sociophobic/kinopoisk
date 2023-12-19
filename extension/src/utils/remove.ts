@@ -38,11 +38,21 @@ const removeAllFoundByTagNames = (tagNames: string[]) => {
   })
 }
 
+const removeAllFoundByIds = (ids: string[]) => {
+  ids.forEach(id => {
+    const element = document.getElementById(id)
+
+    if (element)
+      remove(element)
+  })
+}
+
 
 export {
   hide,
   remove,
   hideFirstFoundByClassNames,
   removeAllFoundByClassNames,
-  removeAllFoundByTagNames
+  removeAllFoundByTagNames,
+  removeAllFoundByIds
 }

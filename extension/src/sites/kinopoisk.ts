@@ -3,7 +3,8 @@ import {
   hide,
   remove,
   removeAllFoundByClassNames,
-  hideFirstFoundByClassNames
+  hideFirstFoundByClassNames,
+  removeAllFoundByIds
 } from '../utils/remove'
 
 
@@ -56,6 +57,22 @@ const kinopoisk = () => {
 
     if (footerFirstChild?.children[0].classList.contains?.('image'))
       remove(footerFirstChild)
+  }
+
+  // REMOVE STARTER POPUP
+  removeAllFoundByClassNames(['ReactModalPortal'])
+  removeAllFoundByIds([
+    'popover-root',
+    'modal-root',
+  ])
+
+  const body = document.getElementsByTagName('body')[0]
+
+  if (body) {
+    const scrollDisabler = [...body.classList].find(className => className.startsWith('styles_body__'))
+
+    if (scrollDisabler)
+      body.classList.remove(scrollDisabler)
   }
 }
 
