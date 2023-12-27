@@ -4,6 +4,7 @@ import kinopoisk, { insertRutrackerButton } from './sites/kinopoisk'
 import reactDev from './sites/reactDev'
 import rutracker from './sites/rutracker'
 import skillbox from './sites/skillbox'
+import tvtropes from './sites/tvtropes'
 import vk from './sites/vk'
 
 
@@ -31,6 +32,9 @@ function fixSites() {
 
   if (window.location.href.includes('instagram.com'))
     setInterval(instagram, 500)
+
+  if (window.location.href.includes('tvtropes.org'))
+    setInterval(tvtropes, 500)
 }
 
 // Run the function when the content script is injected into a page.
