@@ -60,12 +60,15 @@ const insertDownloadStory = () => {
 const findCurrentPost = () => {
   var all_imgs = [...document.getElementsByTagName('img')]
   // From profile page
-  const currentPost = all_imgs.find(img =>
-    img.srcset.startsWith('https://scontent-prg1-1.cdninstagram.com/v/')
-    && img.alt.startsWith('Photo by')
+  const currentPictures = all_imgs.filter(img =>
+    img.srcset.startsWith('https://scontent')
+    &&
+    // img.alt.startsWith('Photo by')
+    // &&
+    img.getBoundingClientRect().left > 0
   )
 
-  return currentPost
+  return currentPictures[0]
 }
 
 const insertDownloadPost = () => {
@@ -74,7 +77,7 @@ const insertDownloadPost = () => {
 
   const currentPost = findCurrentPost()
   const downloadButton = getDownloadButton()
-
+  
   if (currentPost) {
     downloadButton.onclick = () => {
       console.log(currentPost)
