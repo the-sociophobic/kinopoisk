@@ -1,4 +1,5 @@
 import _2gis from './sites/2gis'
+import dzen from './sites/dzen'
 import instagram from './sites/instagram'
 import kinopoisk, { insertRutrackerButton } from './sites/kinopoisk'
 import reactDev from './sites/reactDev'
@@ -39,6 +40,9 @@ function fixSites() {
 
   if (window.location.href.includes('tumblr.com'))
     setInterval(tumblr, 500)
+
+  if (window.location.href.includes('dzen.ru'))
+    setInterval(dzen, 500)
 }
 
 // Run the function when the content script is injected into a page.

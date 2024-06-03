@@ -5,7 +5,7 @@ const sortRutrackerSearch = () => {
   if (!resultsTable)
     return
   
-  resultsTable.scrollIntoView?.()
+  // resultsTable.scrollIntoView?.()
 
   const seedsTh = resultsTable.children[0].children[0].children[6]
   console.log(seedsTh)

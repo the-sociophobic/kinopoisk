@@ -74,6 +74,9 @@ const kinopoisk = () => {
     if (scrollDisabler)
       body.classList.remove(scrollDisabler)
   }
+
+  // REMOVE UNDERHEADER BANNER
+  removeAllFoundByClassNames(['underheader-superbanner-wrapper'])
 }
 
 const insertRutrackerButton = () => {
