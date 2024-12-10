@@ -60,13 +60,19 @@ const insertDownloadStory = () => {
 const findCurrentPost = () => {
   var all_imgs = [...document.getElementsByTagName('img')]
   // From profile page
-  const currentPictures = all_imgs.filter(img =>
-    img.srcset.startsWith('https://scontent')
-    &&
-    // img.alt.startsWith('Photo by')
+  const currentPictures = all_imgs
+  .filter(img =>
+    // img.srcset.startsWith('https://scontent')
     // &&
+    // img.alt.startsWith('Photo by')
     img.getBoundingClientRect().left > 0
   )
+  .sort((imgA, imgB) => {
+    const imgA_W = imgA.getBoundingClientRect().right - imgA.getBoundingClientRect().left
+    const imgB_W = imgB.getBoundingClientRect().right - imgB.getBoundingClientRect().left
+
+    return imgB_W - imgA_W
+  })
 
   return currentPictures[0]
 }
