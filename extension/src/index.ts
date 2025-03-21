@@ -9,6 +9,7 @@ import tumblr from './sites/tumblr'
 import tvtropes from './sites/tvtropes'
 import vk from './sites/vk'
 import refactoringGuru from './sites/refactoringGuru'
+import tiktok from './sites/tiktok'
 
 
 function fixSites() {
@@ -47,6 +48,9 @@ function fixSites() {
 
   if (window.location.href.includes('refactoring.guru'))
     setInterval(refactoringGuru, 500)
+
+  if (window.location.href.includes('tiktok.com'))
+    setInterval(tiktok, 500)
 }
 
 // Run the function when the content script is injected into a page.
