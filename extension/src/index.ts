@@ -10,6 +10,7 @@ import tvtropes from './sites/tvtropes'
 import vk from './sites/vk'
 import refactoringGuru from './sites/refactoringGuru'
 import tiktok from './sites/tiktok'
+import p3dm from './sites/p3dm'
 
 
 function fixSites() {
@@ -51,6 +52,9 @@ function fixSites() {
 
   if (window.location.href.includes('tiktok.com'))
     setInterval(tiktok, 500)
+
+  if (window.location.href.includes('p3dm.ru'))
+    setInterval(p3dm, 100)
 }
 
 // Run the function when the content script is injected into a page.
