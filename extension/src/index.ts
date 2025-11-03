@@ -11,6 +11,7 @@ import vk from './sites/vk'
 import refactoringGuru from './sites/refactoringGuru'
 import tiktok from './sites/tiktok'
 import p3dm from './sites/p3dm'
+import telegram from './sites/telegram'
 
 
 function fixSites() {
@@ -55,6 +56,9 @@ function fixSites() {
 
   if (window.location.href.includes('p3dm.ru'))
     setInterval(p3dm, 100)
+
+  if (window.location.href.includes('web.telegram.org'))
+    setInterval(telegram, 500)
 }
 
 // Run the function when the content script is injected into a page.
