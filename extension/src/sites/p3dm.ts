@@ -6,7 +6,7 @@ const p3dm = () => {
 
   closeAdButton?.click()
 
-  removeAllFoundByTagNames(['iframe'])
+  removeAllFoundByTagNames(['iframe', 'ins'])
 }
 
 
