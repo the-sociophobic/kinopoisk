@@ -1,4 +1,4 @@
-import { removeAllFoundByTagNames } from '../utils/remove'
+import { removeAllFoundByClassNames, removeAllFoundByTagNames } from '../utils/remove'
 
 
 const p3dm = () => {
@@ -7,6 +7,8 @@ const p3dm = () => {
   closeAdButton?.click()
 
   removeAllFoundByTagNames(['iframe', 'ins'])
+
+  removeAllFoundByClassNames(['ban-div'])
 }
 
 
