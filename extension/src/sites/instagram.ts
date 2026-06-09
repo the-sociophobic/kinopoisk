@@ -1,6 +1,6 @@
 import downloadFile from '../utils/downloadFile'
 import getDownloadButton from '../utils/getDownloadButton'
-import urlToFilename from '../utils/urlToFileName'
+import { urlToFilename } from '../utils/urlToFileName'
 
 
 const findCurrentStory = () => {
@@ -60,7 +60,7 @@ const insertDownloadPost = () => {
   const currentPost = findCurrentPost()
   const downloadButton = getDownloadButton()
   
-  if (currentPost) {
+  if (currentPost && currentPost.src) {
     downloadButton.onclick = () => {
       console.log(currentPost)
       downloadFile(
